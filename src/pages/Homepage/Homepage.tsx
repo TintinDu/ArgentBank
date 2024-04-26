@@ -1,9 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { userService } from "../../services";
+import { useStore } from "react-redux";
+import { Hero } from "../../components/Hero";
+import { Features } from "../../components/Features";
 
 export function Homepage() {
   const toto = useParams();
+  const store = useStore();
+  console.log(store);
   console.log(toto);
   useEffect(() => {
     async () => {
@@ -13,8 +18,9 @@ export function Homepage() {
   }, []);
 
   return (
-    <div>
-      <p>Homepage</p>
-    </div>
+    <>
+      <Hero />
+      <Features />
+    </>
   );
 }
