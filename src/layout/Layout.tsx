@@ -1,7 +1,13 @@
+import { Outlet } from "react-router-dom";
+import { Navbar } from "../components/Layout/Navbar";
+import { Footer } from "../components/Layout/Footer";
+
 export function Layout() {
   return (
     <div className="App">
-      <p>Layout</p>
+      <Navbar />
+      <Outlet />
+      <Footer />
     </div>
   );
 }
