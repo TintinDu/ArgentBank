@@ -1,7 +1,10 @@
+import styled from "styled-components";
+import { Form } from "react-router-dom";
+
 export function Login() {
   return (
-    <div>
+    <Form>
       <p>Login</p>
-    </div>
+    </Form>
   );
 }
