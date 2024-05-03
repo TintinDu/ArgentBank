@@ -10,12 +10,15 @@ const StyledNavbarLink = styled.a`
 
 const StyledNavbarText = styled.p`
   margin-left: 0.3em;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export function NavbarLink() {
   return (
     <StyledNavbarLink href="/login">
-      <i className="fa fa-user-circle"></i>
+      <i className="fa fa-user-circle" style={{ textDecoration: "none" }}></i>
       <StyledNavbarText>Sign In</StyledNavbarText>
     </StyledNavbarLink>
   );

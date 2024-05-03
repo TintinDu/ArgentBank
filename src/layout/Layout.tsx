@@ -6,9 +6,7 @@ export function Layout() {
   return (
     <div className="App">
       <Navbar />
-      <main>
-        <Outlet />
-      </main>
+      <Outlet />
       <Footer />
     </div>
   );
