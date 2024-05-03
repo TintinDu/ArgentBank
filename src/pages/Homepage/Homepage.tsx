@@ -21,7 +21,7 @@ export function Homepage() {
 
   return (
     <>
-      <Hero background={"/bank-tree.jpeg"} />
+      <Hero />
       {/* {store.getState()} */}
       <Features />
     </>
