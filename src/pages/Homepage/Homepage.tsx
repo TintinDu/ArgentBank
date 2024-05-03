@@ -16,8 +16,9 @@ export function Homepage() {
       const data = await userService.getUserData("662260ad79f48f3d3b3e259c");
       console.log({ data });
       setUserData(data);
+      console.log(userData);
     };
-  }, []);
+  }, [userData]);
 
   return (
     <main>
