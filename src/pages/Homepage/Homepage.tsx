@@ -20,10 +20,10 @@ export function Homepage() {
   }, []);
 
   return (
-    <>
+    <main>
       <Hero />
       {/* {store.getState()} */}
       <Features />
-    </>
+    </main>
   );
 }

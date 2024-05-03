@@ -1,31 +1,28 @@
 import styled from "styled-components";
+import { Form } from "../../components/Form";
 
-const StyledLabel = styled.label`
-  display: flex;
-  flex-direction: row;
+const SignInMain = styled.main`
+  background-color: #12002b;
+  flex: 1;
 `;
 
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 200px;
+const SignInContent = styled.section`
+  box-sizing: border-box;
+  background-color: white;
+  width: 300px;
   margin: 0 auto;
+  margin-top: 3rem;
+  padding: 2rem;
 `;
 
 export function Login() {
   return (
-    <StyledForm method="post">
-      Username
-      <input type="text" />
-      Password
-      <input type="text" />
-      <StyledLabel>
-        <input type="checkbox" />
-        Remember me
-      </StyledLabel>
-      <button type="submit" value="Submit">
-        Sign In
-      </button>
-    </StyledForm>
+    <SignInMain>
+      <SignInContent>
+        <i className="fa fa-user-circle sign-in-icon"></i>
+        <h2>Sign In</h2>
+        <Form />
+      </SignInContent>
+    </SignInMain>
   );
 }
