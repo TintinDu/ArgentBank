@@ -4,28 +4,11 @@
 // import { useStore } from "react-redux";
 import { Hero } from "../../components/Hero";
 import { Features } from "../../components/Features";
+import { store } from "../../redux/store";
 
 export function Homepage() {
-  // const [userData, setUserData] = useState<any>(null);
-  // const toto = useParams();
-  // const store = useStore();
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const token = await userService.login({
-  //       email: "tony@stark.com",
-  //       password: "password123",
-  //     });
-
-  //     console.log(token);
-
-  //     const data = await userService.getUserData("662260ad79f48f3d3b3e259c");
-  //     console.log({ data });
-  //     setUserData(data);
-  //     console.log(userData);
-  //   };
-
-  //   fetchData();
-  // }, []);
+  const toto = store.getState();
+  console.log(toto);
 
   return (
     <main>

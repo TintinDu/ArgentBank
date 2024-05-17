@@ -1,5 +1,8 @@
 import { BasicMain } from "../../layout/Layout";
 import styled from "styled-components";
+import { store } from "../../redux/store";
+import { useEffect, useState } from "react";
+import { userService } from "../../services";
 
 const ProfileHeader = styled.header`
   color: #fff;
@@ -78,13 +81,30 @@ const TransactionButton = styled.button`
 `;
 
 export function Profile() {
-  return (
+  const { token } = store.getState();
+
+  const [userData, setUserData] = useState<any>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await userService.getUserData(token);
+
+      if (!data) {
+        throw new Error("No data found");
+      }
+
+      setUserData(data);
+    };
+
+    fetchData();
+  }, [token]);
+  console.log(userData);
+  return userData ? (
     <BasicMain>
       <ProfileHeader>
         <h1>
           Welcome back
           <br />
-          Tony Jarvis!
+          {userData.firstName} {userData.lastName}
         </h1>
         <EditButton>Edit Name</EditButton>
         <SrOnly>Accounts</SrOnly>
@@ -120,5 +140,7 @@ export function Profile() {
         </AccountContentWrapper>
       </AccountSection>
     </BasicMain>
+  ) : (
+    "Loading..."
   );
 }
