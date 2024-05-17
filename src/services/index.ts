@@ -23,8 +23,8 @@ const login = async (serviceData: ServiceData): Promise<string> => {
       data: serviceData,
     });
 
-    console.log(response);
-    return response.data.token;
+    localStorage.setItem("token", response.data.body.token);
+    return response.data.body.token;
   } catch (error) {
     console.error(error);
     return "an error occured";
