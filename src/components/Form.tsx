@@ -1,4 +1,7 @@
+import { useState } from "react";
 import styled from "styled-components";
+import { userService } from "../services";
+import { useNavigate } from "react-router-dom";
 
 const InputWrapper = styled.div`
   display: flex;
@@ -33,18 +36,40 @@ const SignInButton = styled.button`
   background-color: #00bc77;
   color: #fff;
   text-decoration: underline;
+  border: none;
+`;
+
+const StyledForm = styled.form`
+  box-sizing: border-box;
+  background-color: white;
+  margin: 0 auto;
+  text-align: center;
 `;
 
 export function Form() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await userService.login({
+      email,
+      password,
+    });
+
+    navigate("/profile");
+  };
+
   return (
-    <form>
+    <StyledForm onSubmit={handleLogin} method="POST">
       <InputWrapper>
         <label>Username</label>
-        <input type="text" />
+        <input type="text" onChange={(e) => setEmail(e.target.value)} />
       </InputWrapper>
       <InputWrapper>
         <label>Password</label>
-        <input type="text" />
+        <input type="text" onChange={(e) => setPassword(e.target.value)} />
       </InputWrapper>
       <InputRemember>
         <input type="checkbox" />
@@ -54,6 +79,6 @@ export function Form() {
       <SignInButton type="submit" value="Submit">
         Sign In
       </SignInButton>
-    </form>
+    </StyledForm>
   );
 }
