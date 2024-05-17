@@ -23,7 +23,7 @@ const login = async (serviceData: ServiceData): Promise<string> => {
       data: serviceData,
     });
 
-    localStorage.setItem("token", response.data.body.token);
+    // localStorage.setItem("token", response.data.body.token);
     return response.data.body.token;
   } catch (error) {
     console.error(error);
@@ -31,17 +31,17 @@ const login = async (serviceData: ServiceData): Promise<string> => {
   }
 };
 
-const getUserData = async (userId: string): Promise<UserData | void> => {
+const getUserData = async (token: string): Promise<UserData | void> => {
   try {
     const response = await axios({
       method: "post",
-      url: `http://127.0.0.1:3001/api/v1/user/profile/${userId}`,
+      url: `http://127.0.0.1:3001/api/v1/user/profile`,
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
+        Authorization: `Bearer ${token}`,
       },
     });
     console.log(response);
-    return response.data;
+    return response.data.body;
   } catch (error) {
     console.error("Error fetching user data:", error);
   }

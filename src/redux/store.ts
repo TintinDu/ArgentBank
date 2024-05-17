@@ -1,15 +1,23 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+const token = localStorage.getItem("token")
+  ? localStorage.getItem("token")
+  : null;
+
 const state = {
   value: null,
-  list: ["toto", "tata"],
+  token,
+  userInfos: null,
 };
 
 const reducer = (currentState: any, action: any) => {
   switch (action.type) {
-    case "GOGO": {
-      const listWithNewProduct = [...currentState.list, action.payload];
-      return { ...currentState, list: listWithNewProduct };
+    case "LOGIN": {
+      localStorage.setItem("token", action.payload);
+      return {
+        ...currentState,
+        token: action.payload,
+      };
     }
     default:
       return currentState;

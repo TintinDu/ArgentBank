@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { userService } from "../services";
 import { useNavigate } from "react-router-dom";
+import { store } from "../redux/store";
 
 const InputWrapper = styled.div`
   display: flex;
@@ -53,10 +54,12 @@ export function Form() {
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await userService.login({
+    const token = await userService.login({
       email,
       password,
     });
+
+    store.dispatch({ type: "LOGIN", payload: token });
 
     navigate("/profile");
   };

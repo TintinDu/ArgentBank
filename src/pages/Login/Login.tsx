@@ -10,7 +10,9 @@ const SignInContent = styled.section`
   margin-top: 3rem;
   padding: 2rem;
 `;
-
+// style.tsx
+// les deux côte à côte
+// index.tsx
 export function Login() {
   return (
     <BasicMain>
