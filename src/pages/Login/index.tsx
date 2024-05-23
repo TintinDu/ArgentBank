@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Form } from "../../components/Form";
-import { BasicMain } from "../../layout/Layout";
+import { BasicMain } from "../../layout";
 
 const SignInContent = styled.section`
   box-sizing: border-box;
@@ -10,9 +10,7 @@ const SignInContent = styled.section`
   margin-top: 3rem;
   padding: 2rem;
 `;
-// style.tsx
-// les deux côte à côte
-// index.tsx
+
 export function Login() {
   return (
     <BasicMain>

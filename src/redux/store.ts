@@ -1,22 +1,37 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, Reducer } from "@reduxjs/toolkit";
+import { UserData } from "../services";
+import { Action } from "redux";
 
 const token = localStorage.getItem("token")
   ? localStorage.getItem("token")
   : null;
+
+export type State = {
+  value: null | string;
+  token: null | string;
+  userInfos: null | UserData;
+};
 
 const state = {
   value: null,
   token,
   userInfos: null,
 };
-
-const reducer = (currentState: any, action: any) => {
+const reducer: Reducer<State, Action> = (currentState = state, action) => {
   switch (action.type) {
     case "LOGIN": {
-      localStorage.setItem("token", action.payload);
+      const { payload } = action as { payload?: string };
+      localStorage.setItem("token", payload!);
       return {
         ...currentState,
-        token: action.payload,
+        token: payload!,
+      };
+    }
+    case "LOGOUT": {
+      localStorage.removeItem("token");
+      return {
+        ...currentState,
+        token: null,
       };
     }
     default:
@@ -25,3 +40,5 @@ const reducer = (currentState: any, action: any) => {
 };
 
 export const store = configureStore({ preloadedState: state, reducer });
+
+export type RootState = ReturnType<typeof store.getState>;

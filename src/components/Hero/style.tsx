@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledHero = styled.div`
+export const StyledHero = styled.div`
   background-image: url(/bank-tree.jpeg);
   background-position: 0 -50px;
   background-size: cover;
@@ -13,7 +13,7 @@ const StyledHero = styled.div`
   }
 `;
 
-const HeroContent = styled.section`
+export const HeroContent = styled.section`
   position: relative;
   top: 2rem;
   width: 200px;
@@ -30,7 +30,7 @@ const HeroContent = styled.section`
   }
 `;
 
-const SrOnly = styled.h2`
+export const SrOnly = styled.h2`
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important;
   -webkit-clip-path: inset(50%) !important;
@@ -44,7 +44,7 @@ const SrOnly = styled.h2`
   white-space: nowrap !important;
 `;
 
-const Subtitle = styled.p`
+export const Subtitle = styled.p`
   font-weight: bold;
   font-size: 1rem;
   margin: 0;
@@ -53,24 +53,10 @@ const Subtitle = styled.p`
   }
 `;
 
-const Text = styled.p`
+export const Text = styled.p`
   margin-bottom: 0;
   font-size: 0.9rem;
   @media (min-width: 920px) {
     font-size: 1.2rem;
   }
 `;
-
-export function Hero() {
-  return (
-    <StyledHero>
-      <HeroContent>
-        <SrOnly>Promoted Content</SrOnly>
-        <Subtitle>No fees.</Subtitle>
-        <Subtitle>No minimum deposit.</Subtitle>
-        <Subtitle>High interest rates.</Subtitle>
-        <Text>Open a savings account with Argent Bank today! </Text>
-      </HeroContent>
-    </StyledHero>
-  );
-}
