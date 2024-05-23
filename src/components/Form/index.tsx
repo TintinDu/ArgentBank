@@ -1,51 +1,13 @@
 import { useState } from "react";
-import styled from "styled-components";
-import { userService } from "../services";
+import { userService } from "../../services";
 import { useNavigate } from "react-router-dom";
-import { store } from "../redux/store";
-
-const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  margin-bottom: 1rem;
-  label {
-    font-weight: bold;
-  }
-  input {
-    padding: 5px;
-    font-size: 1.2rem;
-  }
-`;
-
-const InputRemember = styled.div`
-  display: flex;
-`;
-
-const CustomLabel = styled.label`
-  margin-left: 0.25rem;
-`;
-
-const SignInButton = styled.button`
-  display: block;
-  width: 100%;
-  padding: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-top: 1rem;
-  border-color: #00bc77;
-  background-color: #00bc77;
-  color: #fff;
-  text-decoration: underline;
-  border: none;
-`;
-
-const StyledForm = styled.form`
-  box-sizing: border-box;
-  background-color: white;
-  margin: 0 auto;
-  text-align: center;
-`;
+import {
+  CustomLabel,
+  InputRemember,
+  InputWrapper,
+  SignInButton,
+  StyledForm,
+} from "./style";
 
 export function Form() {
   const [email, setEmail] = useState("");
@@ -54,12 +16,10 @@ export function Form() {
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const token = await userService.login({
+    await userService.login({
       email,
       password,
     });
-
-    store.dispatch({ type: "LOGIN", payload: token });
 
     navigate("/profile");
   };

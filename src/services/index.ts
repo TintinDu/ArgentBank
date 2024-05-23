@@ -1,21 +1,21 @@
 import axios from "axios";
+import { store } from "../redux/store";
 
-// localStorage.setItem(token) au moment où on se connecte
-
-type ServiceData = {
+export type ServiceData = {
   email: string;
   password: string;
 };
 
-type UserData = {
-  id: string;
+export type UserData = {
+  createdAt: string;
   email: string;
-  username: string;
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  id: string;
+  lastName: string;
+  updatedAt: string;
 };
 
-const login = async (serviceData: ServiceData): Promise<string> => {
+const login = async (serviceData: ServiceData): Promise<void | string> => {
   try {
     const response = await axios({
       method: "post",
@@ -23,8 +23,18 @@ const login = async (serviceData: ServiceData): Promise<string> => {
       data: serviceData,
     });
 
-    // localStorage.setItem("token", response.data.body.token);
-    return response.data.body.token;
+    const token = response.data.body.token;
+
+    store.dispatch({ type: "LOGIN", payload: token });
+  } catch (error) {
+    console.error(error);
+    return "an error occured";
+  }
+};
+
+const logout = async (): Promise<void | string> => {
+  try {
+    store.dispatch({ type: "LOGOUT", payload: null });
   } catch (error) {
     console.error(error);
     return "an error occured";
@@ -49,5 +59,6 @@ const getUserData = async (token: string): Promise<UserData | void> => {
 
 export const userService = {
   login,
+  logout,
   getUserData,
 };
