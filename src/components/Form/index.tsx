@@ -32,7 +32,11 @@ export function Form() {
       </InputWrapper>
       <InputWrapper>
         <label>Password</label>
-        <input type="text" onChange={(e) => setPassword(e.target.value)} />
+        <input
+          type="password"
+          autoComplete="on"
+          onChange={(e) => setPassword(e.target.value)}
+        />
       </InputWrapper>
       <InputRemember>
         <input type="checkbox" />

@@ -13,6 +13,7 @@ import {
   SrOnly,
   TransactionButton,
 } from "./style";
+import { Dialog } from "../../components/Dialog";
 
 export function Profile() {
   const { token } = store.getState();
@@ -34,6 +35,17 @@ export function Profile() {
 
     fetchData();
   }, [token]);
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleClose = () => {
+    setDialogOpen(false);
+  };
+
+  const handleClickOpen = () => {
+    setDialogOpen(true);
+  };
+
   return userData ? (
     <BasicMain>
       <ProfileHeader>
@@ -42,9 +54,10 @@ export function Profile() {
           <br />
           {userData.firstName} {userData.lastName}
         </h1>
-        <EditButton>Edit Name</EditButton>
+        <EditButton onClick={handleClickOpen}>Edit Name</EditButton>
         <SrOnly>Accounts</SrOnly>
       </ProfileHeader>
+      <Dialog isOpen={dialogOpen} onClose={handleClose} />
       <AccountSection>
         <AccountContentWrapper>
           <AccountTitle>Current Balance</AccountTitle>

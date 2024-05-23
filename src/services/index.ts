@@ -7,12 +7,10 @@ export type ServiceData = {
 };
 
 export type UserData = {
-  createdAt: string;
   email: string;
   firstName: string;
   id: string;
   lastName: string;
-  updatedAt: string;
 };
 
 const login = async (serviceData: ServiceData): Promise<void | string> => {
@@ -28,7 +26,7 @@ const login = async (serviceData: ServiceData): Promise<void | string> => {
     store.dispatch({ type: "LOGIN", payload: token });
   } catch (error) {
     console.error(error);
-    return "an error occured";
+    return "Error logging in user";
   }
 };
 
@@ -37,7 +35,7 @@ const logout = async (): Promise<void | string> => {
     store.dispatch({ type: "LOGOUT", payload: null });
   } catch (error) {
     console.error(error);
-    return "an error occured";
+    return "Error logging out user";
   }
 };
 
@@ -50,10 +48,31 @@ const getUserData = async (token: string): Promise<UserData | void> => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response);
     return response.data.body;
   } catch (error) {
     console.error("Error fetching user data:", error);
+  }
+};
+
+const updateUserData = async (payload: {
+  firstName: string;
+  lastName: string;
+}): Promise<void> => {
+  try {
+    const token = store.getState().token;
+    if (token) {
+      const response = await axios({
+        method: "put",
+        url: `http://127.0.0.1:3001/api/v1/user/profile`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: payload,
+      });
+      return response.data.body;
+    }
+  } catch (error) {
+    console.error("Error updating user data:", error);
   }
 };
 
@@ -61,4 +80,5 @@ export const userService = {
   login,
   logout,
   getUserData,
+  updateUserData,
 };
