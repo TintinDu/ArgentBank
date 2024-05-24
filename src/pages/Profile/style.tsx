@@ -3,6 +3,10 @@ import styled from "styled-components";
 export const ProfileHeader = styled.header`
   color: #fff;
   margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const EditButton = styled.button`
@@ -40,11 +44,22 @@ export const AccountSection = styled.section`
   box-sizing: border-box;
   text-align: left;
   margin-bottom: 2rem;
+  @media (min-width: 720px) {
+    flex-direction: row;
+  }
 `;
 
 export const AccountContentWrapper = styled.div`
   width: 100%;
   flex: 1;
+`;
+
+export const AccountContentWrapperCta = styled.div`
+  width: 100%;
+  flex: 1;
+  @media (min-width: 720px) {
+    flex: 0;
+  }
 `;
 
 export const AccountTitle = styled.h3`
@@ -74,4 +89,7 @@ export const TransactionButton = styled.button`
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
+  @media (min-width: 720px) {
+    width: 200px;
+  }
 `;

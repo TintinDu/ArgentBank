@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { userService } from "../../../services";
+import { userService } from "../../services";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
+import { RootState, store } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
 
 const StyledNavbarLink = styled.a`
@@ -19,6 +19,12 @@ const StyledNavbarText = styled.p`
   }
 `;
 
+const NavItemsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const handleLogout = async (navigate: (arg0: string) => void) => {
   await userService.logout();
   navigate("/");
@@ -27,6 +33,7 @@ const handleLogout = async (navigate: (arg0: string) => void) => {
 export function NavbarLink() {
   const navigate = useNavigate();
   const token = useSelector((state: RootState) => state.token);
+  const { userInfos } = store.getState();
 
   return !token ? (
     <StyledNavbarLink onClick={() => navigate("/login")}>
@@ -34,9 +41,15 @@ export function NavbarLink() {
       <StyledNavbarText>Sign In</StyledNavbarText>
     </StyledNavbarLink>
   ) : (
-    <StyledNavbarLink onClick={() => handleLogout(navigate)}>
-      <i className="fa fa-user-circle" style={{ textDecoration: "none" }}></i>
-      <StyledNavbarText>Logout</StyledNavbarText>
-    </StyledNavbarLink>
+    <NavItemsWrapper>
+      <StyledNavbarLink onClick={() => navigate("/profile")}>
+        <i className="fa fa-user-circle" style={{ textDecoration: "none" }}></i>
+        <StyledNavbarText>{userInfos?.firstName}</StyledNavbarText>
+      </StyledNavbarLink>
+      <StyledNavbarLink onClick={() => handleLogout(navigate)}>
+        <i className="fa fa-sign-out" style={{ textDecoration: "none" }}></i>
+        <StyledNavbarText>Sign Out</StyledNavbarText>
+      </StyledNavbarLink>
+    </NavItemsWrapper>
   );
 }

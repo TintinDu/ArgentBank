@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Form } from "../../components/Form";
+import { LoginForm } from "../../components/LoginForm";
 import { BasicMain } from "../../layout";
 
 const SignInContent = styled.section`
@@ -17,7 +17,7 @@ export function Login() {
       <SignInContent>
         <i className="fa fa-user-circle sign-in-icon"></i>
         <h2>Sign In</h2>
-        <Form />
+        <LoginForm />
       </SignInContent>
     </BasicMain>
   );

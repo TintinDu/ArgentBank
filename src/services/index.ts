@@ -1,5 +1,6 @@
 import axios from "axios";
 import { store } from "../redux/store";
+import { ACTION } from "../redux/action";
 
 export type ServiceData = {
   email: string;
@@ -23,7 +24,7 @@ const login = async (serviceData: ServiceData): Promise<void | string> => {
 
     const token = response.data.body.token;
 
-    store.dispatch({ type: "LOGIN", payload: token });
+    store.dispatch({ type: ACTION.LOGIN, payload: token });
 
     return token;
   } catch (error) {
@@ -42,7 +43,7 @@ const getUserData = async (token: string): Promise<UserData | void> => {
       },
     });
 
-    store.dispatch({ type: "SET_USER_DATA", payload: response.data.body });
+    store.dispatch({ type: ACTION.SET_USER_DATA, payload: response.data.body });
 
     return response.data.body;
   } catch (error) {
@@ -52,7 +53,7 @@ const getUserData = async (token: string): Promise<UserData | void> => {
 
 const logout = async (): Promise<void | string> => {
   try {
-    store.dispatch({ type: "LOGOUT", payload: null });
+    store.dispatch({ type: ACTION.LOGOUT, payload: null });
   } catch (error) {
     console.error(error);
     return "Error logging out user";
@@ -74,6 +75,12 @@ const updateUserData = async (payload: {
         },
         data: payload,
       });
+
+      store.dispatch({
+        type: ACTION.SET_USER_DATA,
+        payload: response.data.body,
+      });
+
       return response.data.body;
     }
   } catch (error) {

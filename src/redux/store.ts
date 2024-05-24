@@ -7,6 +7,8 @@ const token = localStorage.getItem("token")
   ? localStorage.getItem("token")
   : null;
 
+const userInfos = localStorage.getItem("userInfos") || null;
+
 export type State = {
   value: null | string;
   token: null | string;
@@ -16,7 +18,7 @@ export type State = {
 const state = {
   value: null,
   token,
-  userInfos: null,
+  userInfos: userInfos ? JSON.parse(userInfos) : null,
 };
 const reducer: Reducer<State, Action> = (currentState = state, action) => {
   switch (action.type) {
@@ -40,6 +42,7 @@ const reducer: Reducer<State, Action> = (currentState = state, action) => {
     case ACTION.SET_USER_DATA: {
       const { payload } = action as { payload?: UserData };
       localStorage.setItem("userInfos", JSON.stringify(payload));
+
       return {
         ...currentState,
         userInfos: payload!,

@@ -1,11 +1,12 @@
 import { BasicMain } from "../../layout";
 import { store } from "../../redux/store";
-import { useEffect, useState } from "react";
-import { UserData, userService } from "../../services";
+import { useState } from "react";
+import { UserData } from "../../services";
 import {
   AccountAmount,
   AccountAmountDescription,
   AccountContentWrapper,
+  AccountContentWrapperCta,
   AccountSection,
   AccountTitle,
   EditButton,
@@ -13,38 +14,22 @@ import {
   SrOnly,
   TransactionButton,
 } from "./style";
-import { Dialog } from "../../components/Dialog";
+import { EditNameForm } from "../../components/EditNameForm";
 
 export function Profile() {
-  const { token } = store.getState();
+  const { userInfos } = store.getState();
 
-  const [userData, setUserData] = useState<UserData | null>(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!token) {
-        throw new Error("No token found");
-      }
-      const data = await userService.getUserData(token);
+  const [userData, setUserData] = useState<UserData | null>(userInfos);
 
-      if (!data) {
-        throw new Error("No data found");
-      }
-
-      setUserData(data);
-    };
-
-    fetchData();
-  }, [token]);
-
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const handleClose = (event: React.FormEvent) => {
     event.preventDefault();
-    setDialogOpen(false);
+    setIsFormOpen(false);
   };
 
   const handleClickOpen = () => {
-    setDialogOpen(true);
+    setIsFormOpen(true);
   };
 
   const handleNameChange = (firstName: string, lastName: string) => {
@@ -58,48 +43,56 @@ export function Profile() {
   return userData ? (
     <BasicMain>
       <ProfileHeader>
-        <h1>
-          Welcome back
-          <br />
-          {userData.firstName} {userData.lastName}
-        </h1>
-        <EditButton onClick={handleClickOpen}>Edit Name</EditButton>
+        {isFormOpen ? (
+          <>
+            <h1>Welcome back</h1>
+            <EditNameForm
+              isOpen={isFormOpen}
+              onClose={(event) => handleClose(event)}
+              onSubmit={handleNameChange}
+            />
+          </>
+        ) : (
+          <>
+            <h1>
+              Welcome back
+              <br />
+              {userData.firstName} {userData.lastName}!
+            </h1>
+            <EditButton onClick={handleClickOpen}>Edit Name</EditButton>
+          </>
+        )}
         <SrOnly>Accounts</SrOnly>
       </ProfileHeader>
-      <Dialog
-        isOpen={dialogOpen}
-        onClose={(event) => handleClose(event)}
-        onSubmit={handleNameChange}
-      />
       <AccountSection>
         <AccountContentWrapper>
-          <AccountTitle>Current Balance</AccountTitle>
-          <AccountAmount>$2,000.00</AccountAmount>
+          <AccountTitle>Argent Bank Checking (x8349)</AccountTitle>
+          <AccountAmount>$2,082.79</AccountAmount>
           <AccountAmountDescription>Available Balance</AccountAmountDescription>
         </AccountContentWrapper>
-        <AccountContentWrapper>
+        <AccountContentWrapperCta>
           <TransactionButton>View Transactions</TransactionButton>
-        </AccountContentWrapper>
+        </AccountContentWrapperCta>
       </AccountSection>
       <AccountSection>
         <AccountContentWrapper>
-          <AccountTitle>Current Balance</AccountTitle>
-          <AccountAmount>$2,000.00</AccountAmount>
+          <AccountTitle>Argent Bank Savings (x6712)</AccountTitle>
+          <AccountAmount>$10,928.42</AccountAmount>
           <AccountAmountDescription>Available Balance</AccountAmountDescription>
         </AccountContentWrapper>
-        <AccountContentWrapper>
+        <AccountContentWrapperCta>
           <TransactionButton>View Transactions</TransactionButton>
-        </AccountContentWrapper>
+        </AccountContentWrapperCta>
       </AccountSection>
       <AccountSection>
         <AccountContentWrapper>
-          <AccountTitle>Current Balance</AccountTitle>
-          <AccountAmount>$2,000.00</AccountAmount>
-          <AccountAmountDescription>Available Balance</AccountAmountDescription>
+          <AccountTitle>Argent Bank Credit Card (x8349)</AccountTitle>
+          <AccountAmount>$184.30</AccountAmount>
+          <AccountAmountDescription>Current Balance</AccountAmountDescription>
         </AccountContentWrapper>
-        <AccountContentWrapper>
+        <AccountContentWrapperCta>
           <TransactionButton>View Transactions</TransactionButton>
-        </AccountContentWrapper>
+        </AccountContentWrapperCta>
       </AccountSection>
     </BasicMain>
   ) : (

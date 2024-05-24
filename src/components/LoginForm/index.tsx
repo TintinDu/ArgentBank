@@ -9,17 +9,23 @@ import {
   StyledForm,
 } from "./style";
 
-export function Form() {
+export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await userService.login({
+    const token = await userService.login({
       email,
       password,
     });
+
+    if (!token) {
+      return;
+    }
+
+    await userService.getUserData(token);
 
     navigate("/profile");
   };
