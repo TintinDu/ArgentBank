@@ -38,12 +38,21 @@ export function Profile() {
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const handleClose = () => {
+  const handleClose = (event: React.FormEvent) => {
+    event.preventDefault();
     setDialogOpen(false);
   };
 
   const handleClickOpen = () => {
     setDialogOpen(true);
+  };
+
+  const handleNameChange = (firstName: string, lastName: string) => {
+    setUserData((prevState: UserData | null) => ({
+      ...prevState!,
+      firstName,
+      lastName,
+    }));
   };
 
   return userData ? (
@@ -57,7 +66,11 @@ export function Profile() {
         <EditButton onClick={handleClickOpen}>Edit Name</EditButton>
         <SrOnly>Accounts</SrOnly>
       </ProfileHeader>
-      <Dialog isOpen={dialogOpen} onClose={handleClose} />
+      <Dialog
+        isOpen={dialogOpen}
+        onClose={(event) => handleClose(event)}
+        onSubmit={handleNameChange}
+      />
       <AccountSection>
         <AccountContentWrapper>
           <AccountTitle>Current Balance</AccountTitle>
