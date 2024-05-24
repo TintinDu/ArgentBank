@@ -1,6 +1,7 @@
 import { configureStore, Reducer } from "@reduxjs/toolkit";
 import { UserData } from "../services";
 import { Action } from "redux";
+import { ACTION } from "./action";
 
 const token = localStorage.getItem("token")
   ? localStorage.getItem("token")
@@ -19,7 +20,7 @@ const state = {
 };
 const reducer: Reducer<State, Action> = (currentState = state, action) => {
   switch (action.type) {
-    case "LOGIN": {
+    case ACTION.LOGIN: {
       const { payload } = action as { payload?: string };
       localStorage.setItem("token", payload!);
       return {
@@ -27,11 +28,21 @@ const reducer: Reducer<State, Action> = (currentState = state, action) => {
         token: payload!,
       };
     }
-    case "LOGOUT": {
+    case ACTION.LOGOUT: {
       localStorage.removeItem("token");
+      localStorage.removeItem("userInfos");
       return {
         ...currentState,
         token: null,
+        userInfos: null,
+      };
+    }
+    case ACTION.SET_USER_DATA: {
+      const { payload } = action as { payload?: UserData };
+      localStorage.setItem("userInfos", JSON.stringify(payload));
+      return {
+        ...currentState,
+        userInfos: payload!,
       };
     }
     default:
