@@ -24,18 +24,11 @@ const login = async (serviceData: ServiceData): Promise<void | string> => {
     const token = response.data.body.token;
 
     store.dispatch({ type: "LOGIN", payload: token });
+
+    return token;
   } catch (error) {
     console.error(error);
     return "Error logging in user";
-  }
-};
-
-const logout = async (): Promise<void | string> => {
-  try {
-    store.dispatch({ type: "LOGOUT", payload: null });
-  } catch (error) {
-    console.error(error);
-    return "Error logging out user";
   }
 };
 
@@ -48,9 +41,21 @@ const getUserData = async (token: string): Promise<UserData | void> => {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    store.dispatch({ type: "SET_USER_DATA", payload: response.data.body });
+
     return response.data.body;
   } catch (error) {
     console.error("Error fetching user data:", error);
+  }
+};
+
+const logout = async (): Promise<void | string> => {
+  try {
+    store.dispatch({ type: "LOGOUT", payload: null });
+  } catch (error) {
+    console.error(error);
+    return "Error logging out user";
   }
 };
 
