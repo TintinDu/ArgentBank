@@ -1,18 +1,6 @@
 import styled from "styled-components";
 
-export const DialogWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-`;
-
-export const DialogContent = styled.div`
+export const FormContent = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +11,12 @@ export const DialogContent = styled.div`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
-export const DialogInput = styled.input`
+export const InputWrapper = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+
+export const FormInput = styled.input`
   margin: 0.5rem 0;
   padding: 0.5rem;
   border: 1px solid #ccc;
@@ -38,9 +31,9 @@ const Button = styled.button`
 `;
 
 export const SubmitButton = styled(Button)`
-  border: none;
-  background-color: #007bff;
-  color: white;
+  border-color: #00bc77;
+  background-color: #00bc77;
+  color: #fff;
 `;
 
 export const CancelButton = styled(Button)`

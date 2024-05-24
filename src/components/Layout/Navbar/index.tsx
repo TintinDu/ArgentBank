@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Logo } from "./Logo";
-import { NavbarLink } from "./NavbarLink";
+import { Logo } from "../../common/Logo";
+import { NavbarLink } from "../../NavbarLink";
 
 const StyledNavbar = styled.nav`
   display: flex;
