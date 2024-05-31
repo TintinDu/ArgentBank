@@ -5,6 +5,7 @@ import { ACTION } from "../redux/action";
 export type ServiceData = {
   email: string;
   password: string;
+  rememberMe: boolean;
 };
 
 export type UserData = {
@@ -24,7 +25,10 @@ const login = async (serviceData: ServiceData): Promise<void | string> => {
 
     const token = response.data.body.token;
 
-    store.dispatch({ type: ACTION.LOGIN, payload: token });
+    store.dispatch({
+      type: ACTION.LOGIN,
+      payload: { token, rememberMe: serviceData.rememberMe },
+    });
 
     return token;
   } catch (error) {
