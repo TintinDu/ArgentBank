@@ -12,6 +12,7 @@ import {
 export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -19,6 +20,7 @@ export function LoginForm() {
     const token = await userService.login({
       email,
       password,
+      rememberMe,
     });
 
     if (!token) {
@@ -28,6 +30,10 @@ export function LoginForm() {
     await userService.getUserData(token);
 
     navigate("/profile");
+  };
+
+  const handleRememberMe = () => {
+    setRememberMe(!rememberMe);
   };
 
   return (
@@ -45,7 +51,11 @@ export function LoginForm() {
         />
       </InputWrapper>
       <InputRemember>
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          checked={rememberMe}
+          onClick={handleRememberMe}
+        />
         <CustomLabel />
         Remember me
       </InputRemember>

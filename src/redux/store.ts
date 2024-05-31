@@ -20,16 +20,34 @@ const state = {
   token,
   userInfos: userInfos ? JSON.parse(userInfos) : null,
 };
+
+type LoginPayload = {
+  token: string;
+  rememberMe: boolean;
+};
+
 const reducer: Reducer<State, Action> = (currentState = state, action) => {
   switch (action.type) {
     case ACTION.LOGIN: {
-      const { payload } = action as { payload?: string };
-      localStorage.setItem("token", payload!);
+      const { payload } = action as { payload?: LoginPayload };
+
+      if (!payload) {
+        return currentState;
+      }
+
+      if (!payload.rememberMe) {
+        sessionStorage.setItem("token", payload.token);
+      }
+      if (payload.rememberMe) {
+        localStorage.setItem("token", payload.token);
+      }
+
       return {
         ...currentState,
-        token: payload!,
+        token: payload.token,
       };
     }
+
     case ACTION.LOGOUT: {
       localStorage.removeItem("token");
       localStorage.removeItem("userInfos");

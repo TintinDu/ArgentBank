@@ -1,6 +1,6 @@
 import { BasicMain } from "../../layout";
 import { store } from "../../redux/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserData } from "../../services";
 import {
   AccountAmount,
@@ -15,9 +15,11 @@ import {
   TransactionButton,
 } from "./style";
 import { EditNameForm } from "../../components/EditNameForm";
+import { useNavigate } from "react-router-dom";
 
 export function Profile() {
-  const { userInfos } = store.getState();
+  const { userInfos, token } = store.getState();
+  const navigate = useNavigate();
 
   const [userData, setUserData] = useState<UserData | null>(userInfos);
 
@@ -40,7 +42,13 @@ export function Profile() {
     }));
   };
 
-  return userData ? (
+  useEffect(() => {
+    if (!userData || !token) {
+      navigate("/login");
+    }
+  }, [token, userData, navigate]);
+
+  return userData && token ? (
     <BasicMain>
       <ProfileHeader>
         {isFormOpen ? (
@@ -96,6 +104,6 @@ export function Profile() {
       </AccountSection>
     </BasicMain>
   ) : (
-    <h1>Loading...</h1>
+    <h1>Loading</h1>
   );
 }
