@@ -53,6 +53,8 @@ const reducer: Reducer<State, Action> = (currentState = state, action) => {
     case ACTION.LOGOUT: {
       localStorage.removeItem("token");
       localStorage.removeItem("userInfos");
+      sessionStorage.removeItem("userInfos");
+      sessionStorage.removeItem("userInfos");
       return {
         ...currentState,
         token: null,

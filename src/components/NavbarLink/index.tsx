@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { userService } from "../../services";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { RootState, store } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
 
 const StyledNavbarLink = styled.a`
@@ -34,6 +34,10 @@ export function NavbarLink() {
   const navigate = useNavigate();
   const token = useSelector((state: RootState) => state.token);
   const userInfos = useSelector((state: RootState) => state.userInfos);
+
+  if (!token) {
+    store.dispatch({ type: "LOGOUT" });
+  }
 
   return !token ? (
     <StyledNavbarLink onClick={() => navigate("/login")}>
