@@ -3,11 +3,13 @@ import { UserData } from "../services";
 import { Action } from "redux";
 import { ACTION } from "./action";
 
-const token = localStorage.getItem("token")
-  ? localStorage.getItem("token")
-  : null;
+const token =
+  (localStorage.getItem("token") || sessionStorage.getItem("token")) ?? null;
 
-const userInfos = localStorage.getItem("userInfos") || null;
+const userInfos =
+  localStorage.getItem("userInfos") ||
+  sessionStorage.getItem("userInfos") ||
+  null;
 
 export type State = {
   value: null | string;
@@ -59,6 +61,7 @@ const reducer: Reducer<State, Action> = (currentState = state, action) => {
     }
     case ACTION.SET_USER_DATA: {
       const { payload } = action as { payload?: UserData };
+      sessionStorage.setItem("userInfos", JSON.stringify(payload));
       localStorage.setItem("userInfos", JSON.stringify(payload));
 
       return {
