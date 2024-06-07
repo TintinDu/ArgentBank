@@ -79,7 +79,7 @@ export function Profile() {
           <AccountAmountDescription>Available Balance</AccountAmountDescription>
         </AccountContentWrapper>
         <AccountContentWrapperCta>
-          <TransactionButton>View Transactions</TransactionButton>
+          <TransactionButton>View transactions</TransactionButton>
         </AccountContentWrapperCta>
       </AccountSection>
       <AccountSection>
@@ -89,7 +89,7 @@ export function Profile() {
           <AccountAmountDescription>Available Balance</AccountAmountDescription>
         </AccountContentWrapper>
         <AccountContentWrapperCta>
-          <TransactionButton>View Transactions</TransactionButton>
+          <TransactionButton>View transactions</TransactionButton>
         </AccountContentWrapperCta>
       </AccountSection>
       <AccountSection>
@@ -99,7 +99,7 @@ export function Profile() {
           <AccountAmountDescription>Current Balance</AccountAmountDescription>
         </AccountContentWrapper>
         <AccountContentWrapperCta>
-          <TransactionButton>View Transactions</TransactionButton>
+          <TransactionButton>View transactions</TransactionButton>
         </AccountContentWrapperCta>
       </AccountSection>
     </BasicMain>
